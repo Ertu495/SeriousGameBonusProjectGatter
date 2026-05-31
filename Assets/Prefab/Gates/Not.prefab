@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &244945369992010945
+--- !u!1 &1280714405560590847
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4608008755743773059}
-  - component: {fileID: 4463061596178927496}
-  - component: {fileID: 3659401019597447493}
+  - component: {fileID: 4710705614722405651}
+  - component: {fileID: 8613121646260196950}
+  - component: {fileID: 8881017795245698008}
   m_Layer: 10
   m_Name: GateText
   m_TagString: Untagged
@@ -18,32 +18,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &4608008755743773059
+--- !u!224 &4710705614722405651
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244945369992010945}
+  m_GameObject: {fileID: 1280714405560590847}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5625565922246481768}
+  m_Father: {fileID: 5023521614247104678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!23 &4463061596178927496
+--- !u!23 &8613121646260196950
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244945369992010945}
+  m_GameObject: {fileID: 1280714405560590847}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3659401019597447493
+--- !u!114 &8881017795245698008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244945369992010945}
+  m_GameObject: {fileID: 1280714405560590847}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gate Slot
+  m_text: Not
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -179,9 +179,9 @@ MonoBehaviour:
   _SortingLayerID: 0
   _SortingOrder: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 4463061596178927496}
+  m_renderer: {fileID: 8613121646260196950}
   m_maskType: 0
---- !u!1 &8234643645064775311
+--- !u!1 &7083044282054407328
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,42 +189,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5625565922246481768}
-  - component: {fileID: 5810437203103122108}
-  - component: {fileID: 3950229690653915484}
-  - component: {fileID: 3623851821890719263}
-  - component: {fileID: 1495649622974704885}
+  - component: {fileID: 5023521614247104678}
+  - component: {fileID: 6360632095502101868}
+  - component: {fileID: 3134541349152170569}
+  - component: {fileID: 1568786796369665566}
+  - component: {fileID: 2864450734309970719}
   m_Layer: 14
-  m_Name: XorGate
+  m_Name: Not
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5625565922246481768
+--- !u!4 &5023521614247104678
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234643645064775311}
+  m_GameObject: {fileID: 7083044282054407328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.568, y: -3.255, z: 0}
+  m_LocalPosition: {x: -4.56, y: -2.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4608008755743773059}
+  - {fileID: 4710705614722405651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5810437203103122108
+--- !u!212 &6360632095502101868
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234643645064775311}
+  m_GameObject: {fileID: 7083044282054407328}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -276,13 +276,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &3950229690653915484
+--- !u!61 &3134541349152170569
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234643645064775311}
+  m_GameObject: {fileID: 7083044282054407328}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -322,14 +322,14 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &3623851821890719263
+--- !u!50 &1568786796369665566
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234643645064775311}
+  m_GameObject: {fileID: 7083044282054407328}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -349,19 +349,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1495649622974704885
+--- !u!114 &2864450734309970719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8234643645064775311}
+  m_GameObject: {fileID: 7083044282054407328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3abb3429d3be6d24a9b0662f566498c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 9266d772bb8fba340851b3769dbb7039, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OrGate
+  m_EditorClassIdentifier: Assembly-CSharp::NotGate
   locked: 0
-  gateName: Xor
-  gateText: {fileID: 3659401019597447493}
+  gateName: Not
+  gateText: {fileID: 0}
   isDragging: 0

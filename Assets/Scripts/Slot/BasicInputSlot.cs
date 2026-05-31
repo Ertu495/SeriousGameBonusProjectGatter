@@ -1,46 +1,37 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-
-
 public class BasicInputSlot : BasicSlot
 {
-    public GameObject currentInput;
+    private GameObject currentInput;
+    public GameObject[] valueVisuals;
+    public int lockedValue = 0;
 
+
+    void Update()
+    {
+        if (locked)
+        {
+            SetOutput(lockedValue);
+        }
+    }
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (locked) return;
         BasicInput input = other.GetComponent<BasicInput>();
         if (input == null) return;
-        if (locked) return;
         if (input.isDragging) return;
 
-        if (currentInput != input.gameObject)
-        {
-            if (currentInput != null)
-            {
-                currentInput.transform.position = transform.position + new Vector3(0, -3f, 0);
-            }
-
-            currentInput = input.gameObject;
-        }
-
+        currentInput = input.gameObject;
         currentInput.transform.position = transform.position;
-        SetOutput(input.value);
-        locked = input.locked;
-        lockedText.text = locked ? "Locked" : "";
 
+        SetOutput(input.value);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        BasicInput input = other.GetComponent<BasicInput>();
-        if (input == null) return;
         if (locked) return;
 
-        if (currentInput == input.gameObject)
-        {
-            currentInput = null;
-            SetOutput(-1);
-        }
+        SetOutput(-1);
     }
 }

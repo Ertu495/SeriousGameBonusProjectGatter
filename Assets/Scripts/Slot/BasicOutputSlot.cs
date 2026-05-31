@@ -1,46 +1,86 @@
 using UnityEngine;
 using System.Collections.Generic;
-
-
+using TMPro;
 
 public class BasicOutputSlot : BasicSlot
 {
     public GameObject currentInput;
+    public int targetValue;
+    public TextMeshPro targetText;
+    public TextMeshPro outputText;
+    public SpriteRenderer background;
+    public bool isSolved = false;
 
-    private void OnTriggerStay2D(Collider2D other)
+    void Start()
     {
-        BasicInput input = other.GetComponent<BasicInput>();
-        if (input == null) return;
-        if (locked) return;
-        if (input.isDragging) return;
-
-        if (currentInput != input.gameObject)
-        {
-            if (currentInput != null)
-            {
-                currentInput.transform.position = transform.position + new Vector3(0, -3f, 0);
-            }
-
-            currentInput = input.gameObject;
-        }
-
-        currentInput.transform.position = transform.position;
-        output = input.value;
-        locked = input.locked;
-        lockedText.text = locked ? "Locked" : "";
-
+        UpdateTarget();
+        UpdateOutput(-1);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    void UpdateTarget()
     {
-        BasicInput input = other.GetComponent<BasicInput>();
-        if (input == null) return;
-        if (locked) return;
+        targetText.text = "Target: " + targetValue;
+    }
 
-        if (currentInput == input.gameObject)
+    void OnSolved()
+    {
+        if (isSolved) return;
+
+        isSolved = true;
+
+        LockAll();
+
+        foreach (var cable in FindObjectsOfType<StraightCable>())
         {
-            currentInput = null;
-            output = -1;
+            cable.SetSolved();
         }
     }
+
+    void LockAll()
+    {
+        BasicInput[] inputs = FindObjectsOfType<BasicInput>();
+        foreach (var i in inputs)
+        {
+            i.locked = true;
+        }
+
+        BasicGate[] gates = FindObjectsOfType<BasicGate>();
+        foreach (var g in gates)
+        {
+            g.locked = true;
+        }
+    }
+
+    void UpdateOutput(int value)
+    {
+        if (value == -1)
+        {
+            outputText.text = "?";
+            background.color = Color.gray;
+            return;
+        }
+
+        outputText.text = value.ToString();
+
+        if (value == targetValue)
+        {
+            background.color = Color.green;
+            OnSolved();
+        }
+        else
+        {
+            background.color = Color.red;
+        }
+    }
+
+    public void SetInput(int value)
+    {
+        UpdateOutput(value);
+    }
+
+    public override void ReceiveValue(StraightCable cable, int value)
+    {
+        SetInput(value);
+    }
+
 }

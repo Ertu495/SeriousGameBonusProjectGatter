@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 5048559734456883171}
   - component: {fileID: 3156774461760789782}
   m_Layer: 10
-  m_Name: GateSlot2-1
+  m_Name: GateSlotTwoInputs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,13 +434,10 @@ MonoBehaviour:
   output: -1
   cablePrefab: {fileID: 5249398497739274556, guid: 7a5df98e9fee21f4db7e393d02ffd9c6, type: 3}
   cablePairs: []
+  debugInputs: []
   currentGate: {fileID: 0}
-  InputSlots:
-  - {fileID: 802432778529555796}
-  - {fileID: 4485018522739138576}
-  OutputSlots:
-  - {fileID: 1320662653098002986}
-  receivedInputs: 
+  gateInside: {fileID: 0}
+  requiredGateType: 1
 --- !u!1 &7240415211992062580
 GameObject:
   m_ObjectHideFlags: 0

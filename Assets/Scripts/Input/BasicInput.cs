@@ -3,15 +3,16 @@ using TMPro;
 public class BasicInput : MonoBehaviour
 {
     public bool locked = false;
-    public int value = 0;
+    public int value = -1;
 
     public TextMeshPro textMesh;
 
     Vector3 mousePositionOffset;
-    
+
     public bool isDragging = false;
 
-        /// based on this tutorial https://www.youtube.com/watch?v=yalbvB84kCg
+
+    // based on this tutorial https://www.youtube.com/watch?v=yalbvB84kCg
     private Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePoint = Input.mousePosition;
@@ -20,22 +21,20 @@ public class BasicInput : MonoBehaviour
 
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
-        
+
     private void OnMouseDown()
     {
-        if (!locked)
-        {
-            mousePositionOffset = gameObject.transform.position - GetMouseWorldPosition();
-        }
+        if (locked) return;
+
+        mousePositionOffset = transform.position - GetMouseWorldPosition();
     }
 
     private void OnMouseDrag()
     {
-        if (!locked)
-        {
-            isDragging = true;
-            transform.position = GetMouseWorldPosition() + mousePositionOffset;
-        }
+        if (locked) return;
+
+        isDragging = true;
+        transform.position = GetMouseWorldPosition() + mousePositionOffset;
     }
 
     private void OnMouseUp()
@@ -45,7 +44,10 @@ public class BasicInput : MonoBehaviour
 
     void Start()
     {
-        textMesh.text = value.ToString();
+        if (value == -1)
+            textMesh.text = "?";
+        else
+            textMesh.text = value.ToString();
     }
 
 }

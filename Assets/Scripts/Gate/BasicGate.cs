@@ -1,16 +1,47 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using System.Collections;
 public class BasicGate : MonoBehaviour
 {
     public bool locked = false;
     public string gateName = "Gate";
-    
+
     public TextMeshPro gateText;
 
     Vector3 mousePositionOffset;
-    
+
     public bool isDragging = false;
+    public int requiredInputs = 0;
+    private Vector3 startPosition;
+    public bool isInSlot = false;
+
+
+    public enum GateType
+    {
+        OneInput,
+        TwoInput
+    }
+
+    public GateType gateType;
+
+    void Start()
+    {
+        startPosition = transform.position;
+    }
+
+    private IEnumerator ReturnToStart()
+    {
+        float t = 0;
+        Vector3 start = transform.position;
+
+        while (t < 1)
+        {
+            t += Time.deltaTime * 5f;
+            transform.position = Vector3.Lerp(start, startPosition, t);
+            yield return null;
+        }
+    }
 
     private Vector3 GetMouseWorldPosition()
     {
@@ -19,16 +50,11 @@ public class BasicGate : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
-    private void Start()
-    {
-        gateText.text = gateName;
-    }
-
-
     public virtual int CalculateOutput(List<int> inputs)
     {
         return -1;
     }
+
     private void OnMouseDown()
     {
         if (!locked)
@@ -49,6 +75,11 @@ public class BasicGate : MonoBehaviour
     private void OnMouseUp()
     {
         isDragging = false;
+
+        if (!isInSlot)
+        {
+            StartCoroutine(ReturnToStart());
+        }
     }
 
 

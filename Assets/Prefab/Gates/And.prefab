@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6182409178881095863}
   - component: {fileID: 7296914742482287969}
   m_Layer: 14
-  m_Name: AndGate
+  m_Name: And
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AndGate
   locked: 0
   gateName: And
-  value: -1
-  gateText: {fileID: 2059656618728785817}
+  gateText: {fileID: 0}
   isDragging: 0
 --- !u!1 &1922935679572572141
 GameObject:
@@ -291,7 +290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gate Slot
+  m_text: And
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

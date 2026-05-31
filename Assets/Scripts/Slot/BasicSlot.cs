@@ -36,21 +36,17 @@ public class BasicSlot : MonoBehaviour
 
     private List<StraightCable> activeCables = new List<StraightCable>();
 
-    
+
     private void Start()
     {
         UpdateCables();
     }
 
-
-
     public virtual void ReceiveValue(StraightCable cable, int value)
     {
         receivedInputs[cable] = value;
-         UpdateDebugList(); 
+        UpdateDebugList();
     }
-
-
 
     protected void SetOutput(int newValue)
     {
@@ -59,6 +55,7 @@ public class BasicSlot : MonoBehaviour
         {
             cable.RefreshSignal();
         }
+
     }
 
     public void UpdateCables()
@@ -88,7 +85,7 @@ public class BasicSlot : MonoBehaviour
             );
         }
     }
-        
+
     private void UpdateDebugList()
     {
         debugInputs.Clear();
