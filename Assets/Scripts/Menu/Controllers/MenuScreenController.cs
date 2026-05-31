@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,18 +17,35 @@ public class MenuScreenController : MonoBehaviour
     [Header("Level Selection")]
     [SerializeField] private LevelSelectionController levelSelectionController;
 
+    [Header("Game Intro Popup")]
+    [SerializeField] private GameObject gameIntroPopupOverlay;
+    [SerializeField] private TMP_Text gameIntroTitleText;
+    [SerializeField] private TMP_Text gameIntroBodyText;
+    [SerializeField] private TMP_Text gameIntroButtonText;
+
     [Header("Scenes")]
-    [SerializeField] private string firstLevelSceneName = "SampleScene";
+    [SerializeField] private string firstTutorialSceneName = "Tutorial1";
 
     private void Start()
     {
-        OpenMainMenu();
+        CloseGameIntroPopup();
+
+        if (MenuNavigationState.OpenLevelSelectionOnStart)
+        {
+            MenuNavigationState.OpenLevelSelectionOnStart = false;
+            OpenSelectLevelMenu();
+        }
+        else
+        {
+            OpenMainMenu();
+        }
     }
 
     public void OpenMainMenu()
     {
         ShowOnly(mainMenuUI);
         SetBackButton(false);
+        CloseGameIntroPopup();
     }
 
     public void OpenPlayMenu()
@@ -51,22 +69,78 @@ public class MenuScreenController : MonoBehaviour
     {
         ShowOnly(settingsMenuUI);
         SetBackButton(true);
+        CloseGameIntroPopup();
     }
 
     public void OpenCredits()
     {
         ShowOnly(creditsMenuUI);
         SetBackButton(true);
+        CloseGameIntroPopup();
+    }
+
+    public void OnPlayClicked()
+    {
+        OpenSelectLevelMenu();
+
+        if (!GameSessionState.GameIntroWasShown)
+        {
+            OpenGameIntroPopup();
+        }
     }
 
     public void StartNewGame()
     {
-        LoadLevel(firstLevelSceneName);
+        OnPlayClicked();
+    }
+
+    public void ContinueIntroToTutorial1()
+    {
+        GameSessionState.GameIntroWasShown = true;
+        CloseGameIntroPopup();
+        LoadLevel(firstTutorialSceneName);
+    }
+
+    public void OpenGameIntroPopup()
+    {
+        if (gameIntroPopupOverlay == null)
+        {
+            Debug.LogError("GameIntroPopupOverlay is not assigned.");
+            return;
+        }
+
+        if (gameIntroTitleText != null)
+        {
+            gameIntroTitleText.text = "Welcome to Boolean Mechanic!";
+        }
+
+        if (gameIntroBodyText != null)
+        {
+            gameIntroBodyText.text =
+                "Your spaceship has crash-landed on a mysterious planet far from Earth.\n\n" +
+                "The ship's control systems were heavily damaged, and many of its logic circuits are no longer functioning correctly.\n\n" +
+                "To repair the ship and make your way home, you must solve circuit puzzles using Boolean logic gates.";
+        }
+
+        if (gameIntroButtonText != null)
+        {
+            gameIntroButtonText.text = "Continue";
+        }
+
+        gameIntroPopupOverlay.SetActive(true);
+    }
+
+    public void CloseGameIntroPopup()
+    {
+        if (gameIntroPopupOverlay != null)
+        {
+            gameIntroPopupOverlay.SetActive(false);
+        }
     }
 
     public void LoadLevel(string sceneName)
     {
-        if (string.IsNullOrEmpty(sceneName))
+        if (string.IsNullOrWhiteSpace(sceneName))
         {
             Debug.LogError("Scene name is empty. Cannot load level.");
             return;
@@ -79,6 +153,10 @@ public class MenuScreenController : MonoBehaviour
     {
         Debug.Log("Exit game requested.");
         Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void ResetProgressForTesting()
