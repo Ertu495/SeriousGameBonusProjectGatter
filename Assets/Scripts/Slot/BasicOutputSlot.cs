@@ -21,6 +21,11 @@ public class BasicOutputSlot : BasicSlot
     {
         targetText.text = "Target: " + targetValue;
     }
+    void ShowLevelSummary()
+    {
+        Level level = FindFirstObjectByType<Level>();
+        level.EndLevel();
+    }
 
     void OnSolved()
     {
@@ -34,6 +39,8 @@ public class BasicOutputSlot : BasicSlot
         {
             cable.SetSolved();
         }
+        Invoke(nameof(ShowLevelSummary), 3f);
+
     }
 
     void LockAll()

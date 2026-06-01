@@ -11,6 +11,12 @@ public class MenuScreenController : MonoBehaviour
     [SerializeField] private GameObject settingsMenuUI;
     [SerializeField] private GameObject creditsMenuUI;
 
+    [SerializeField] private GameObject levelUI;
+
+    [SerializeField] private GameObject levelTutorialUI;
+    [SerializeField] private GameObject endLevelUI; 
+
+
     [Header("Shared UI")]
     [SerializeField] private GameObject backButtonUI;
 
@@ -24,7 +30,10 @@ public class MenuScreenController : MonoBehaviour
     [SerializeField] private TMP_Text gameIntroButtonText;
 
     [Header("Scenes")]
-    [SerializeField] private string firstTutorialSceneName = "Tutorial1";
+    [SerializeField] private int firstLevelIndex = 0;
+
+    [SerializeField] private GameObject levelManager;
+
 
     private void Start()
     {
@@ -54,6 +63,11 @@ public class MenuScreenController : MonoBehaviour
         SetBackButton(true);
     }
 
+    public void ResetProgress()
+    {
+        GameProgress.ResetProgress();
+
+    }
     public void OpenSelectLevelMenu()
     {
         ShowOnly(selectLevelMenuUI);
@@ -65,6 +79,22 @@ public class MenuScreenController : MonoBehaviour
         }
     }
 
+    public void ShowLevelUI()
+    {
+        ShowOnly(levelUI);
+        SetBackButton(true);
+    }
+
+    public void ShowEndLevelUI()
+    {
+        ShowOnly(endLevelUI);
+        SetBackButton(true);
+    }
+    public void ShowLevelTutorialUI()
+    {
+        ShowOnly(levelTutorialUI);
+        SetBackButton(true);
+    }
     public void OpenSettings()
     {
         ShowOnly(settingsMenuUI);
@@ -98,7 +128,7 @@ public class MenuScreenController : MonoBehaviour
     {
         GameSessionState.GameIntroWasShown = true;
         CloseGameIntroPopup();
-        LoadLevel(firstTutorialSceneName);
+        //LoadLevel(firstLevelIndex);
     }
 
     public void OpenGameIntroPopup()
@@ -138,15 +168,11 @@ public class MenuScreenController : MonoBehaviour
         }
     }
 
-    public void LoadLevel(string sceneName)
+    public void LoadLevel(int levelIndex)
     {
-        if (string.IsNullOrWhiteSpace(sceneName))
-        {
-            Debug.LogError("Scene name is empty. Cannot load level.");
-            return;
-        }
-
-        SceneManager.LoadScene(sceneName);
+        ShowLevelUI();
+        levelManager.GetComponent<LevelManager>().CreateLevel(levelIndex);
+        
     }
 
     public void ExitGame()
@@ -176,6 +202,9 @@ public class MenuScreenController : MonoBehaviour
         SetActive(selectLevelMenuUI, selectLevelMenuUI == targetMenu);
         SetActive(settingsMenuUI, settingsMenuUI == targetMenu);
         SetActive(creditsMenuUI, creditsMenuUI == targetMenu);
+        SetActive(levelUI, levelUI == targetMenu);
+        SetActive(levelTutorialUI, levelTutorialUI == targetMenu);
+        SetActive(endLevelUI, endLevelUI == targetMenu);
     }
 
     private void SetBackButton(bool visible)
