@@ -126,9 +126,14 @@ MonoBehaviour:
   AvailableGates: []
   tutorialText: JD
   tutorialTextHeader: 
+  endLevelText: 
+  endLevelHeader: 
   targetValue: 0
   currentValue: 0
   tutorialTextObject: {fileID: 0}
+  endLevelObject: {fileID: 0}
+  LevelManagerObject: {fileID: 0}
+  menuScreenController: {fileID: 0}
 --- !u!1001 &32997806919282190
 PrefabInstance:
   m_ObjectHideFlags: 0

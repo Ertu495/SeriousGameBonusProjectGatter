@@ -63,6 +63,11 @@ public class MenuScreenController : MonoBehaviour
         SetBackButton(true);
     }
 
+    public void ResetProgress()
+    {
+        GameProgress.ResetProgress();
+
+    }
     public void OpenSelectLevelMenu()
     {
         ShowOnly(selectLevelMenuUI);

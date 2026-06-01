@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
             level.tutorialTextObject = tutorialTextObject;
             level.endLevelObject = endLevelObject;
             level.LevelManagerObject = this.gameObject;
-            level.levelNumber = levelNumber;
             level.StartLevel();
         }
     }
