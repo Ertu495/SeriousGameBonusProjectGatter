@@ -365,5 +365,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BufferGate
   locked: 0
   gateName: Buffer
-  gateText: {fileID: 0}
+  gateText: {fileID: 3659401019597447493}
   isDragging: 0
+  requiredInputs: 0
+  isInSlot: 0
+  gateType: 0

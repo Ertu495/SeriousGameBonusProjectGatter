@@ -9,6 +9,10 @@ public class MenuNavigationController : MonoBehaviour
     [SerializeField] private GameObject settingsMenuUI;
     [SerializeField] private GameObject creditsMenuUI;
     [SerializeField] private GameObject levelSelectionUI;
+    [SerializeField] private GameObject levelUI;
+    [SerializeField] private GameObject levelTutorialUI;
+    [SerializeField] private GameObject endLevelUI; 
+
 
     private void Start()
     {
@@ -33,6 +37,18 @@ public class MenuNavigationController : MonoBehaviour
         settingsMenuUI.SetActive(true);
     }
 
+    public void ShowLevelUI()
+    {
+        HideAllMenus();
+        levelUI.SetActive(true);
+    }
+
+    public void ShowLevelTutorialUI()
+    {
+        HideAllMenus();
+        levelTutorialUI.SetActive(true);
+    }
+
     public void ShowCreditsMenu()
     {
         HideAllMenus();
@@ -45,9 +61,10 @@ public class MenuNavigationController : MonoBehaviour
         levelSelectionUI.SetActive(true);
     }
 
-    public void LoadLevel(string sceneName)
+    public void ShowEndLevelUI()
     {
-        SceneManager.LoadScene(sceneName);
+        HideAllMenus();
+        endLevelUI.SetActive(true);
     }
 
     public void ExitGame()
@@ -74,5 +91,14 @@ public class MenuNavigationController : MonoBehaviour
 
         if (levelSelectionUI != null)
             levelSelectionUI.SetActive(false);
+
+        if (levelUI != null)
+            levelUI.SetActive(false);
+
+        if (levelTutorialUI != null)
+            levelTutorialUI.SetActive(false);
+
+        if (endLevelUI != null)
+            endLevelUI.SetActive(false);
     }
 }

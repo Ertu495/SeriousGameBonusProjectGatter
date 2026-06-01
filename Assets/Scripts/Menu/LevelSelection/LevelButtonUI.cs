@@ -8,8 +8,7 @@ public class LevelButtonUI : MonoBehaviour
 {
     [Header("Level Data")]
     [SerializeField] private int levelOrder = 1;
-    [SerializeField] private string levelLabel = "T1";
-    [SerializeField] private string sceneName = "SampleScene";
+
     [SerializeField] private bool isImplemented = true;
 
     [Header("UI References")]
@@ -52,7 +51,7 @@ public class LevelButtonUI : MonoBehaviour
 
         if (labelText != null)
         {
-            labelText.text = levelLabel;
+            labelText.text = levelOrder.ToString();
         }
 
         if (buttonImage != null)
@@ -61,22 +60,25 @@ public class LevelButtonUI : MonoBehaviour
         }
     }
 
-    private void OpenLevel()
+private void OpenLevel()
+{
+    bool unlocked = isImplemented && GameProgress.IsLevelUnlocked(levelOrder);
+
+    if (!unlocked)
     {
-        bool unlocked = isImplemented && GameProgress.IsLevelUnlocked(levelOrder);
-
-        if (!unlocked)
-        {
-            Debug.Log($"Level {levelLabel} is locked or not implemented.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogError($"Scene name is empty for level {levelLabel}.");
-            return;
-        }
-
-        SceneManager.LoadScene(sceneName);
+        Debug.Log($"Level {levelOrder} is locked or not implemented.");
+        return;
     }
+
+    MenuScreenController menuController = FindFirstObjectByType<MenuScreenController>();
+
+    if (menuController != null)
+    {
+        menuController.LoadLevel(levelOrder - 1);
+    }
+    else
+    {
+        Debug.LogError("MenuScreenController not found in scene.");
+    }
+}
 }
