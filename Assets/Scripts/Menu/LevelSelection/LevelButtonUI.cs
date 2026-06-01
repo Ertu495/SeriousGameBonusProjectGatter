@@ -25,7 +25,6 @@ public class LevelButtonUI : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(OpenLevel);
     }
 
     private void OnEnable()
@@ -60,25 +59,4 @@ public class LevelButtonUI : MonoBehaviour
         }
     }
 
-private void OpenLevel()
-{
-    bool unlocked = isImplemented && GameProgress.IsLevelUnlocked(levelOrder);
-
-    if (!unlocked)
-    {
-        Debug.Log($"Level {levelOrder} is locked or not implemented.");
-        return;
-    }
-
-    MenuScreenController menuController = FindFirstObjectByType<MenuScreenController>();
-
-    if (menuController != null)
-    {
-        menuController.LoadLevel(levelOrder - 1);
-    }
-    else
-    {
-        Debug.LogError("MenuScreenController not found in scene.");
-    }
-}
 }
