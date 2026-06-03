@@ -186,14 +186,14 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.21176471, g: 0.6784314, b: 0.6392157, a: 1}
   m_enableVertexGradient: 0
-  m_colorMode: 3
+  m_colorMode: 0
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0, g: 0, b: 0, a: 1}
+    topRight: {r: 0, g: 0, b: 0, a: 1}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -939,8 +939,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 1
-  levelLabel: T1
-  sceneName: SampleScene
   isImplemented: 1
   lockedOverlay: {fileID: 0}
   labelText: {fileID: 967119021}
@@ -1457,8 +1455,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 978542192}
+        m_TargetAssemblyTypeName: MenuNavigationController, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
@@ -1933,8 +1931,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1875000451885132343, guid: 2e2a5de6ba3b04f818e27e3338f95c52, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2111,8 +2109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 3
-  levelLabel: L1
-  sceneName: Level1
   isImplemented: 0
   lockedOverlay: {fileID: 2036143785}
   labelText: {fileID: 716000644}
@@ -2209,8 +2205,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2000653444}
+        m_TargetAssemblyTypeName: MenuAudioController, Assembly-CSharp
         m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
@@ -2381,8 +2377,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 6
-  levelLabel: L4
-  sceneName: Level4
   isImplemented: 0
   lockedOverlay: {fileID: 702933743}
   labelText: {fileID: 1150877442}
@@ -2575,7 +2569,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <-
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3210,7 +3204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <-
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3688,13 +3682,17 @@ MonoBehaviour:
   selectLevelMenuUI: {fileID: 2059964030}
   settingsMenuUI: {fileID: 282119631}
   creditsMenuUI: {fileID: 1021183788}
+  levelUI: {fileID: 0}
+  levelTutorialUI: {fileID: 0}
+  endLevelUI: {fileID: 0}
   backButtonUI: {fileID: 0}
   levelSelectionController: {fileID: 2059964034}
   gameIntroPopupOverlay: {fileID: 999680925}
   gameIntroTitleText: {fileID: 2074763268}
   gameIntroBodyText: {fileID: 460808889}
   gameIntroButtonText: {fileID: 1350479578}
-  firstTutorialSceneName: Tutorial1
+  firstLevelIndex: 0
+  levelManager: {fileID: 0}
 --- !u!4 &978542191
 Transform:
   m_ObjectHideFlags: 0
@@ -3727,6 +3725,9 @@ MonoBehaviour:
   settingsMenuUI: {fileID: 282119631}
   creditsMenuUI: {fileID: 1021183788}
   levelSelectionUI: {fileID: 2059964030}
+  levelUI: {fileID: 0}
+  levelTutorialUI: {fileID: 0}
+  endLevelUI: {fileID: 0}
 --- !u!1 &994113586
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,8 +4068,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 2000653444}
+        m_TargetAssemblyTypeName: MenuAudioController, Assembly-CSharp
         m_MethodName: SetSoundVolume
         m_Mode: 0
         m_Arguments:
@@ -4555,8 +4556,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1875000451885132343, guid: 2e2a5de6ba3b04f818e27e3338f95c52, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5431,8 +5432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 2
-  levelLabel: T2
-  sceneName: TutorialLevel2
   isImplemented: 0
   lockedOverlay: {fileID: 1684627952}
   labelText: {fileID: 1964034956}
@@ -6021,8 +6020,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 4
-  levelLabel: L2
-  sceneName: Level2
   isImplemented: 0
   lockedOverlay: {fileID: 1760328296}
   labelText: {fileID: 2010585765}
@@ -6306,7 +6303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <-
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6656,7 +6653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reset
+  m_text: Exit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6910,7 +6907,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -383.86572, y: 189.11688}
-  m_SizeDelta: {x: 48.2685, y: 33.7662}
+  m_SizeDelta: {x: 40, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1937630272
 MonoBehaviour:
@@ -7000,8 +6997,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1875000451885132343, guid: 2e2a5de6ba3b04f818e27e3338f95c52, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7178,8 +7175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelButtonUI
   levelOrder: 5
-  levelLabel: L3
-  sceneName: Level3
   isImplemented: 0
   lockedOverlay: {fileID: 941846729}
   labelText: {fileID: 994113588}
