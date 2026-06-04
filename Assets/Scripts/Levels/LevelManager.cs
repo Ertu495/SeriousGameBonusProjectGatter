@@ -5,8 +5,8 @@ public class LevelManager : MonoBehaviour
 {
 
     public GameObject[] Levels;
-    public GameObject tutorialTextObject; 
-    public GameObject endLevelObject; 
+    public GameObject tutorialTextObject;
+    public GameObject endLevelObject;
 
 
     public void CreateLevel(int levelNumber)
@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
 
     public void DestroyLevel()
     {
-        
+
         foreach (var level in FindObjectsOfType<Level>())
         {
             Destroy(level.gameObject);
@@ -40,11 +40,21 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(cable.gameObject);
         }
+
+        foreach (var basicgate in FindObjectsOfType<BasicGate>())
+        {
+            Destroy(basicgate.gameObject);
+        }
+
+        foreach (var basicInput in FindObjectsOfType<BasicInput>())
+        {
+            Destroy(basicInput.gameObject);
+        }
     }
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

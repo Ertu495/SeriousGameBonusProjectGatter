@@ -210,7 +210,7 @@ Transform:
   m_GameObject: {fileID: 7083044282054407328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.56, y: -2.86, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -362,9 +362,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NotGate
   locked: 0
+  isDragging: 0
   gateName: Not
   gateText: {fileID: 0}
-  isDragging: 0
-  requiredInputs: 0
-  isInSlot: 0
   gateType: 0
+  currentSlot: {fileID: 0}
+  requiredInputs: 0

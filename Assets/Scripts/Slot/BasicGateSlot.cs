@@ -3,115 +3,146 @@ using System.Collections.Generic;
 
 public class BasicGateSlot : BasicSlot
 {
-    public GameObject currentGate;
-    public BasicGate gateInside;
+    public BasicGate currentGate;
     public BasicGate.GateType requiredGateType;
 
-    private bool IsWrongGateType(BasicGate gate)
+    [Header("Visuals")]
+    public GameObject gateVisual;
+
+    public Dictionary<StraightCable, int> receivedInputs = new();
+
+    // =========================
+    // DROP
+    // =========================
+    public void OnDrop(DraggableObject obj)
     {
-        return gate.gateType != requiredGateType;
+        if (obj is not BasicGate gate) return;
+
+        if (locked || gate.gateType != requiredGateType)
+        {
+            Destroy(gate.gameObject);
+            return;
+        }
+
+        SetGate(gate);
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    // =========================
+    // SINGLE SOURCE OF TRUTH
+    // =========================
+    private void SetGate(BasicGate newGate)
     {
-        BasicGate gate = other.GetComponent<BasicGate>();
-        if (gate == null) return;
-        if (locked) return;
-        //if (gate.isDragging) return;
+        // remove old
+        if (currentGate != null && currentGate != newGate)
+        {
+            var old = currentGate;
 
-        if (gateInside == null)
-        {
-            if (IsWrongGateType(gate)) return;
-        }
-        else
-        {
-            if (IsWrongGateType(gateInside)) return;
+            old.currentSlot = null;
+            currentGate = null;
+
+            Destroy(old.gameObject);
         }
 
+        currentGate = newGate;
+        newGate.currentSlot = this;
 
-        if (currentGate != gate.gameObject)
-        {
-            if (currentGate != null)
-            {
-                currentGate.transform.position = transform.position + new Vector3(0, -3f, 0);
-            }
-            currentGate = gate.gameObject;
-            gateInside = currentGate.GetComponent<BasicGate>();
-            gate.isInSlot = true;
+        newGate.transform.position = transform.position;
 
-            Recalculate();
-
-        }
-
-        currentGate.transform.position = transform.position;
-        locked = gate.locked;
-        lockedText.text = locked ? "Locked" : "";
+        Recalculate();
+        ApplyVisual();
     }
 
+    // =========================
+    // REMOVE (ONLY SLOT CONTROLS THIS)
+    // =========================
+    public void ForceRemoveGate(BasicGate gate)
+    {
+        if (currentGate != gate) return;
+
+        gate.currentSlot = null;
+        currentGate = null;
+
+        Recalculate();
+        ApplyVisual();
+    }
+
+    // =========================
+    // INPUT
+    // =========================
+    public override void ReceiveValue(StraightCable cable, int value)
+    {
+        receivedInputs[cable] = value;
+        Recalculate();
+    }
+
+    // =========================
+    // LOGIC
+    // =========================
     private void Recalculate()
     {
         if (currentGate == null)
         {
             SetOutput(-1);
+            ApplyVisual(); // 🔥 ADD
             return;
         }
 
-        if (gateInside == null)
+        CleanInputs();
 
-            return;
-        List<int> inputs = new List<int>(receivedInputs.Values);
-        if (inputs.Count > 0)
-        {
-            SetOutput(gateInside.CalculateOutput(inputs));
-        }
-        else
+        var inputs = new List<int>(receivedInputs.Values);
+
+        if (inputs.Count < currentGate.requiredInputs)
         {
             SetOutput(-1);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        BasicGate gate = other.GetComponent<BasicGate>();
-        if (gate == null) return;
-        if (locked) return;
-
-        if (currentGate == gate.gameObject)
-        {
-            gate.isInSlot = false;
-            currentGate = null;
-            gateInside = null;
-            Recalculate();
-
-        }
-    }
-
-
-
-    public override void ReceiveValue(StraightCable cable, int value)
-    {
-        if (gateInside != null &&
-            receivedInputs.Count >= gateInside.requiredInputs)
-        {
+            ApplyVisual(); // 🔥 ADD
             return;
         }
 
-        base.ReceiveValue(cable, value);
-        Recalculate();
-    }
-
-    private void UpdateDebugList()
-    {
-        debugInputs.Clear();
-
-        foreach (var kvp in receivedInputs)
+        foreach (var v in inputs)
         {
-            debugInputs.Add(new CableInputDebug
+            if (v == -1)
             {
-                cable = kvp.Key,
-                value = kvp.Value
-            });
+                SetOutput(-1);
+                ApplyVisual(); // 🔥 ADD
+                return;
+            }
         }
+
+        SetOutput(currentGate.CalculateOutput(inputs));
+
+        ApplyVisual(); // 🔥 ADD (WICHTIG)
     }
 
+    private void CleanInputs()
+    {
+        List<StraightCable> remove = new();
+
+        foreach (var p in receivedInputs)
+        {
+            if (p.Key == null)
+                remove.Add(p.Key);
+        }
+
+        foreach (var r in remove)
+            receivedInputs.Remove(r);
+    }
+
+    // =========================
+    // VISUAL (SAFE)
+    // =========================
+    private void ApplyVisual()
+    {
+        if (gateVisual == null) return;
+
+        gateVisual.SetActive(true);
+
+        // HARD BLOCK interaction
+        var drag = gateVisual.GetComponent<DraggableObject>();
+        if (drag != null)
+            drag.enabled = false;
+
+        var col = gateVisual.GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = false;
+    }
 }

@@ -7,11 +7,11 @@ public class OrGate : BasicGate
     {
         gateType = GateType.TwoInput;
         requiredInputs = 2;
+        gateName = "OR";
     }
+
     public override int CalculateOutput(List<int> inputs)
     {
-        if (inputs.Count < 2)
-            return -1;
-        return (inputs[0] == 1 || inputs[1] == 1) ? 1 : 0;
+        return inputs.Count >= 2 && (inputs[0] == 1 || inputs[1] == 1) ? 1 : 0;
     }
 }

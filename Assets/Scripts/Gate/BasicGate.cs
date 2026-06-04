@@ -1,53 +1,22 @@
 using UnityEngine;
-using System.Collections.Generic;
 using TMPro;
-using System.Collections;
-public class BasicGate : MonoBehaviour
-{
-    public bool locked = false;
-    public string gateName = "Gate";
+using System.Collections.Generic;
 
+public class BasicGate : DraggableObject
+{
+    public string gateName = "Gate";
     public TextMeshPro gateText;
 
-    Vector3 mousePositionOffset;
-
-    public bool isDragging = false;
-    public int requiredInputs = 0;
-    private Vector3 startPosition;
-    public bool isInSlot = false;
-
-
-    public enum GateType
-    {
-        OneInput,
-        TwoInput
-    }
-
+    public enum GateType { OneInput, TwoInput }
     public GateType gateType;
+
+    public BasicGateSlot currentSlot;
+    public int requiredInputs = 0;
 
     void Start()
     {
-        startPosition = transform.position;
-    }
-
-    private IEnumerator ReturnToStart()
-    {
-        float t = 0;
-        Vector3 start = transform.position;
-
-        while (t < 1)
-        {
-            t += Time.deltaTime * 5f;
-            transform.position = Vector3.Lerp(start, startPosition, t);
-            yield return null;
-        }
-    }
-
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mousePoint = Input.mousePosition;
-        mousePoint.z = Camera.main.WorldToScreenPoint(transform.position).z;
-        return Camera.main.ScreenToWorldPoint(mousePoint);
+        if (gateText != null)
+            gateText.text = gateName;
     }
 
     public virtual int CalculateOutput(List<int> inputs)
@@ -55,32 +24,9 @@ public class BasicGate : MonoBehaviour
         return -1;
     }
 
-    private void OnMouseDown()
+    protected override bool IsInAnySlot()
     {
-        if (!locked)
-        {
-            mousePositionOffset = gameObject.transform.position - GetMouseWorldPosition();
-        }
+        return currentSlot != null;
     }
-
-    private void OnMouseDrag()
-    {
-        if (!locked)
-        {
-            isDragging = true;
-            transform.position = GetMouseWorldPosition() + mousePositionOffset;
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        isDragging = false;
-
-        if (!isInSlot)
-        {
-            StartCoroutine(ReturnToStart());
-        }
-    }
-
 
 }

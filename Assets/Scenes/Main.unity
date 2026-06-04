@@ -287,11 +287,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   Levels:
   - {fileID: 5161622853822628540, guid: cb4bc10764fc0c041bc798c2ec91fcc0, type: 3}
-  - {fileID: 5161622853822628540, guid: d4bd3a04dd6db174da93f54dfb948c00, type: 3}
-  - {fileID: 5161622853822628540, guid: cb4bc10764fc0c041bc798c2ec91fcc0, type: 3}
-  - {fileID: 5161622853822628540, guid: cb4bc10764fc0c041bc798c2ec91fcc0, type: 3}
-  - {fileID: 5161622853822628540, guid: cb4bc10764fc0c041bc798c2ec91fcc0, type: 3}
-  - {fileID: 5161622853822628540, guid: cb4bc10764fc0c041bc798c2ec91fcc0, type: 3}
+  - {fileID: 5161622853822628540, guid: e4cbee625f9019d43a994d43d17b2f69, type: 3}
+  - {fileID: 5161622853822628540, guid: f42fe86df264ee14a950e9d3b0f60aec, type: 3}
+  - {fileID: 5161622853822628540, guid: 66734c6646d52404a8399f924fa84955, type: 3}
+  - {fileID: 5161622853822628540, guid: 897a6f2aaade20546a68d1c42cf12d5f, type: 3}
+  - {fileID: 5161622853822628540, guid: dce982b883388d64e93cf18846ebe4d6, type: 3}
   tutorialTextObject: {fileID: 1067159581}
   endLevelObject: {fileID: 1904837016}
 --- !u!4 &53172015

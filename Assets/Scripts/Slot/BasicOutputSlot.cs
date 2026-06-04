@@ -21,11 +21,6 @@ public class BasicOutputSlot : BasicSlot
     {
         targetText.text = "Target: " + targetValue;
     }
-    void ShowLevelSummary()
-    {
-        Level level = FindFirstObjectByType<Level>();
-        level.EndLevel();
-    }
 
     void OnSolved()
     {
@@ -39,8 +34,8 @@ public class BasicOutputSlot : BasicSlot
         {
             cable.SetSolved();
         }
-        Invoke(nameof(ShowLevelSummary), 3f);
 
+        Invoke(nameof(ShowLevelSummary), 3f);
     }
 
     void LockAll()
@@ -55,6 +50,11 @@ public class BasicOutputSlot : BasicSlot
         foreach (var g in gates)
         {
             g.locked = true;
+        }
+        PaletteSpawner[] spawners = FindObjectsOfType<PaletteSpawner>();
+        foreach (var s in spawners)
+        {
+            s.locked = true;
         }
     }
 
@@ -90,4 +90,9 @@ public class BasicOutputSlot : BasicSlot
         SetInput(value);
     }
 
+    void ShowLevelSummary()
+    {
+        Level level = FindFirstObjectByType<Level>();
+        level.EndLevel();
+    }
 }

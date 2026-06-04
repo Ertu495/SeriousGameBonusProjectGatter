@@ -7,13 +7,11 @@ public class BufferGate : BasicGate
     {
         gateType = GateType.OneInput;
         requiredInputs = 1;
-    }
-    public override int CalculateOutput(List<int> inputs)
-    {
-        // Debug.Log("Calculating Buffer gate output with inputs: " + string.Join(", ", inputs));
-        if (inputs.Count != 1)
-            return -1;
-        return inputs[0];
+        gateName = "BUFFER";
     }
 
+    public override int CalculateOutput(List<int> inputs)
+    {
+        return inputs.Count == 1 ? inputs[0] : -1;
+    }
 }
