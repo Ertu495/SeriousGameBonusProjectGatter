@@ -12,7 +12,6 @@ public abstract class DraggableObject : MonoBehaviour
     {
         if (locked) return;
 
-        // REMOVE FROM SLOT FIRST (ONLY ONCE)
         if (this is BasicGate gate && gate.currentSlot != null)
         {
             gate.currentSlot.ForceRemoveGate(gate);

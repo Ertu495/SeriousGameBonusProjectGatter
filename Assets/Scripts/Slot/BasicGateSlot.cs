@@ -11,9 +11,6 @@ public class BasicGateSlot : BasicSlot
 
     public Dictionary<StraightCable, int> receivedInputs = new();
 
-    // =========================
-    // DROP
-    // =========================
     public void OnDrop(DraggableObject obj)
     {
         if (obj is not BasicGate gate) return;
@@ -27,12 +24,8 @@ public class BasicGateSlot : BasicSlot
         SetGate(gate);
     }
 
-    // =========================
-    // SINGLE SOURCE OF TRUTH
-    // =========================
     private void SetGate(BasicGate newGate)
     {
-        // remove old
         if (currentGate != null && currentGate != newGate)
         {
             var old = currentGate;
@@ -52,9 +45,6 @@ public class BasicGateSlot : BasicSlot
         ApplyVisual();
     }
 
-    // =========================
-    // REMOVE (ONLY SLOT CONTROLS THIS)
-    // =========================
     public void ForceRemoveGate(BasicGate gate)
     {
         if (currentGate != gate) return;
@@ -66,24 +56,18 @@ public class BasicGateSlot : BasicSlot
         ApplyVisual();
     }
 
-    // =========================
-    // INPUT
-    // =========================
     public override void ReceiveValue(StraightCable cable, int value)
     {
         receivedInputs[cable] = value;
         Recalculate();
     }
 
-    // =========================
-    // LOGIC
-    // =========================
     private void Recalculate()
     {
         if (currentGate == null)
         {
             SetOutput(-1);
-            ApplyVisual(); // 🔥 ADD
+            ApplyVisual();
             return;
         }
 
@@ -94,7 +78,7 @@ public class BasicGateSlot : BasicSlot
         if (inputs.Count < currentGate.requiredInputs)
         {
             SetOutput(-1);
-            ApplyVisual(); // 🔥 ADD
+            ApplyVisual();
             return;
         }
 
@@ -103,14 +87,14 @@ public class BasicGateSlot : BasicSlot
             if (v == -1)
             {
                 SetOutput(-1);
-                ApplyVisual(); // 🔥 ADD
+                ApplyVisual();
                 return;
             }
         }
 
         SetOutput(currentGate.CalculateOutput(inputs));
 
-        ApplyVisual(); // 🔥 ADD (WICHTIG)
+        ApplyVisual();
     }
 
     private void CleanInputs()
@@ -127,16 +111,12 @@ public class BasicGateSlot : BasicSlot
             receivedInputs.Remove(r);
     }
 
-    // =========================
-    // VISUAL (SAFE)
-    // =========================
     private void ApplyVisual()
     {
         if (gateVisual == null) return;
 
         gateVisual.SetActive(true);
 
-        // HARD BLOCK interaction
         var drag = gateVisual.GetComponent<DraggableObject>();
         if (drag != null)
             drag.enabled = false;
