@@ -92,8 +92,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.38993645
+        time: 0.016759872
+        value: 0.14465141
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -155,6 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4c59635dfe22243b1a5e87b6471970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StraightCable
-  start: {fileID: 0}
-  end: {fileID: 0}
-  value: -1
+  sourceSlot: {fileID: 0}
+  resolution: 15
+  width: 0.129
+  useBezier: 1
+  curveHeight: 1
+  flowSpeed: 2
+  pulseSpeed: 3
+  pulseAmount: 0
+  glowOnSignal: 1
+  isSolved: 0
