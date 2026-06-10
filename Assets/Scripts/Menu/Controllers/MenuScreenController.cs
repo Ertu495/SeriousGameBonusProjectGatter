@@ -6,7 +6,8 @@ public class MenuScreenController : MonoBehaviour
 {
     private const string GameStartedKey = "BooleanMechanic_GameStarted";
 
-    [Header("Menu Screens")]
+    [Header("Menu Screens")][Header("Level Runtime Popup UI")]
+[SerializeField] private LevelPopupController levelPopupController;
     [SerializeField] private GameObject mainMenuUI;
     [SerializeField] private GameObject playMenuUI;
     [SerializeField] private GameObject selectLevelMenuUI;
@@ -173,28 +174,33 @@ public class MenuScreenController : MonoBehaviour
         }
     }
 
-    public void LoadLevel(int levelIndex)
+public void LoadLevel(int levelIndex)
+{
+    if (levelManager == null)
     {
-        if (levelManager == null)
-        {
-            Debug.LogError("LevelManager is not assigned in MenuScreenController.");
-            return;
-        }
-
-        LevelManager manager = levelManager.GetComponent<LevelManager>();
-
-        if (manager == null)
-        {
-            Debug.LogError("Assigned LevelManager object does not have LevelManager script.");
-            return;
-        }
-
-        ShowOnly(null);
-        SetBackButton(false);
-        CloseGameIntroPopup();
-
-        manager.CreateLevel(levelIndex);
+        Debug.LogError("LevelManager is not assigned in MenuScreenController.");
+        return;
     }
+
+    LevelManager manager = levelManager.GetComponent<LevelManager>();
+
+    if (manager == null)
+    {
+        Debug.LogError("Assigned LevelManager object does not have LevelManager script.");
+        return;
+    }
+
+    ShowOnly(null);
+    SetBackButton(false);
+    CloseGameIntroPopup();
+
+    if (levelPopupController != null)
+        levelPopupController.BeginLevel(levelIndex + 1);
+    else
+        Debug.LogError("LevelPopupController is not assigned in MenuScreenController.");
+
+    manager.CreateLevel(levelIndex);
+}
 
     public void ResetProgress()
     {
