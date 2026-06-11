@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BackgroundObjectManager : MonoBehaviour
@@ -8,39 +9,49 @@ public class BackgroundObjectManager : MonoBehaviour
     [Header("Start Settings")]
     [SerializeField] private int startBackgroundIndex = 0;
 
+    [Header("Intro Settings")]
+    [SerializeField] private float introBackgroundDuration = 2f;
+    [SerializeField] private int backgroundStartIndex = 0;
+    [SerializeField] private int backgroundEndIndex = 0;
+    private bool introPlayed = false;
+
     [Header("Scaling")]
     [SerializeField] private bool fitActiveBackgroundToCamera = true;
 
     private int currentIndex = -1;
+    private Coroutine introCoroutine;
 
     private void Awake()
     {
-        // Optional: Wenn du das Array leer lässt,
-        // sammelt der Manager automatisch alle Child-Objekte ein.
-        if (backgrounds == null || backgrounds.Length == 0)
-        {
-            backgrounds = new GameObject[transform.childCount];
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                backgrounds[i] = transform.GetChild(i).gameObject;
-            }
-        }
-
+        InitializeBackgrounds();
         SetBackground(startBackgroundIndex);
+    }
+
+
+    private void InitializeBackgrounds()
+    {
+        if (backgrounds != null && backgrounds.Length > 0)
+            return;
+
+        backgrounds = new GameObject[transform.childCount];
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            backgrounds[i] = transform.GetChild(i).gameObject;
+        }
     }
 
     public void SetBackground(int index)
     {
         if (backgrounds == null || backgrounds.Length == 0)
         {
-            Debug.LogWarning("Keine Backgrounds gesetzt.");
+            Debug.LogWarning("No backgrounds assigned");
             return;
         }
 
         if (index < 0 || index >= backgrounds.Length)
         {
-            Debug.LogWarning("Ungültiger Background-Index: " + index);
+            Debug.LogWarning("Invalid background index: " + index);
             return;
         }
 
@@ -58,6 +69,46 @@ public class BackgroundObjectManager : MonoBehaviour
         {
             FitBackgroundToCamera(backgrounds[currentIndex]);
         }
+    }
+
+    public void PlayIntro()
+    {
+        if (introPlayed) return;
+        if (introCoroutine != null)
+        {
+            StopCoroutine(introCoroutine);
+        }
+
+        introCoroutine = StartCoroutine(PlayIntroRoutine());
+        introPlayed = true;
+    }
+
+    public void StopIntro()
+    {
+        if (introCoroutine != null)
+        {
+            StopCoroutine(introCoroutine);
+            introCoroutine = null;
+        }
+    }
+
+    private IEnumerator PlayIntroRoutine()
+    {
+        if (backgrounds == null || backgrounds.Length == 0)
+        {
+            Debug.LogWarning("No backgrounds assigned");
+            yield break;
+        }
+
+
+        for (int i = backgroundStartIndex; i <= backgroundEndIndex; i++)
+        {
+             SetBackground(i);
+             yield return new WaitForSeconds(introBackgroundDuration);
+        }
+
+
+        introCoroutine = null;
     }
 
     public void NextBackground()
@@ -86,23 +137,6 @@ public class BackgroundObjectManager : MonoBehaviour
         SetBackground(previousIndex);
     }
 
-    public void SetBackgroundByName(string backgroundName)
-    {
-        if (backgrounds == null || backgrounds.Length == 0)
-            return;
-
-        for (int i = 0; i < backgrounds.Length; i++)
-        {
-            if (backgrounds[i] != null && backgrounds[i].name == backgroundName)
-            {
-                SetBackground(i);
-                return;
-            }
-        }
-
-        Debug.LogWarning("Background nicht gefunden: " + backgroundName);
-    }
-
     private void FitBackgroundToCamera(GameObject backgroundObject)
     {
         if (backgroundObject == null)
@@ -110,7 +144,7 @@ public class BackgroundObjectManager : MonoBehaviour
 
         if (Camera.main == null)
         {
-            Debug.LogWarning("Keine Main Camera gefunden.");
+            Debug.LogWarning("No Main Camera found.");
             return;
         }
 
@@ -118,7 +152,7 @@ public class BackgroundObjectManager : MonoBehaviour
 
         if (spriteRenderer == null || spriteRenderer.sprite == null)
         {
-            Debug.LogWarning("Kein SpriteRenderer oder Sprite im Background gefunden: " + backgroundObject.name);
+            Debug.LogWarning("No SpriteRenderer or Sprite found in background: " + backgroundObject.name);
             return;
         }
 
@@ -130,8 +164,6 @@ public class BackgroundObjectManager : MonoBehaviour
         float scaleX = screenWidth / spriteSize.x;
         float scaleY = screenHeight / spriteSize.y;
 
-        // Cover: Füllt den ganzen Bildschirm.
-        // Dabei kann je nach Seitenverhältnis etwas abgeschnitten werden.
         float scale = Mathf.Max(scaleX, scaleY);
 
         backgroundObject.transform.localScale = new Vector3(scale, scale, 1f);
