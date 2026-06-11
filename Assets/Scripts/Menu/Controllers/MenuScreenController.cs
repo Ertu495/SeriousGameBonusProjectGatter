@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuScreenController : MonoBehaviour
 {
-    [Header("Menu Screens")]
+    private const string GameStartedKey = "BooleanMechanic_GameStarted";
+
+    [Header("Menu Screens")][Header("Level Runtime Popup UI")]
+[SerializeField] private LevelPopupController levelPopupController;
     [SerializeField] private GameObject mainMenuUI;
     [SerializeField] private GameObject playMenuUI;
     [SerializeField] private GameObject selectLevelMenuUI;
@@ -12,13 +15,14 @@ public class MenuScreenController : MonoBehaviour
     [SerializeField] private GameObject creditsMenuUI;
 
     [SerializeField] private GameObject levelUI;
-
     [SerializeField] private GameObject levelTutorialUI;
-    [SerializeField] private GameObject endLevelUI; 
-
+    [SerializeField] private GameObject endLevelUI;
 
     [Header("Shared UI")]
     [SerializeField] private GameObject backButtonUI;
+
+    [Header("Main Menu")]
+    [SerializeField] private TMP_Text playButtonText;
 
     [Header("Level Selection")]
     [SerializeField] private LevelSelectionController levelSelectionController;
@@ -29,25 +33,17 @@ public class MenuScreenController : MonoBehaviour
     [SerializeField] private TMP_Text gameIntroBodyText;
     [SerializeField] private TMP_Text gameIntroButtonText;
 
-    [Header("Scenes")]
+    [Header("Scenes / Level Loading")]
     [SerializeField] private int firstLevelIndex = 0;
-
     [SerializeField] private GameObject levelManager;
 
+    private bool introPopupOpen;
 
     private void Start()
     {
         CloseGameIntroPopup();
-
-        if (MenuNavigationState.OpenLevelSelectionOnStart)
-        {
-            MenuNavigationState.OpenLevelSelectionOnStart = false;
-            OpenSelectLevelMenu();
-        }
-        else
-        {
-            OpenMainMenu();
-        }
+        OpenMainMenu();
+        RefreshMainButtonText();
     }
 
     public void OpenMainMenu()
@@ -55,28 +51,21 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(mainMenuUI);
         SetBackButton(false);
         CloseGameIntroPopup();
+        RefreshMainButtonText();
     }
 
     public void OpenPlayMenu()
     {
         ShowOnly(playMenuUI);
         SetBackButton(true);
+        RefreshLevelSelection();
     }
 
-    public void ResetProgress()
-    {
-        GameProgress.ResetProgress();
-
-    }
     public void OpenSelectLevelMenu()
     {
         ShowOnly(selectLevelMenuUI);
         SetBackButton(true);
-
-        if (levelSelectionController != null)
-        {
-            levelSelectionController.Refresh();
-        }
+        RefreshLevelSelection();
     }
 
     public void ShowLevelUI()
@@ -90,11 +79,13 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(endLevelUI);
         SetBackButton(true);
     }
+
     public void ShowLevelTutorialUI()
     {
         ShowOnly(levelTutorialUI);
         SetBackButton(true);
     }
+
     public void OpenSettings()
     {
         ShowOnly(settingsMenuUI);
@@ -111,12 +102,16 @@ public class MenuScreenController : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        OpenSelectLevelMenu();
+        bool gameAlreadyStarted = PlayerPrefs.GetInt(GameStartedKey, 0) == 1;
 
-        if (!GameSessionState.GameIntroWasShown)
+        if (gameAlreadyStarted)
         {
-            OpenGameIntroPopup();
+            OpenSelectLevelMenu();
+            return;
         }
+
+        OpenSelectLevelMenu();
+        OpenGameIntroPopup();
     }
 
     public void StartNewGame()
@@ -126,9 +121,15 @@ public class MenuScreenController : MonoBehaviour
 
     public void ContinueIntroToTutorial1()
     {
-        GameSessionState.GameIntroWasShown = true;
+        PlayerPrefs.SetInt(GameStartedKey, 1);
+        PlayerPrefs.Save();
+
         CloseGameIntroPopup();
-        //LoadLevel(firstLevelIndex);
+        RefreshMainButtonText();
+        OpenSelectLevelMenu();
+
+        // Keep this commented if you want the player to choose Level 1 manually.
+        // LoadLevel(firstLevelIndex);
     }
 
     public void OpenGameIntroPopup()
@@ -138,6 +139,8 @@ public class MenuScreenController : MonoBehaviour
             Debug.LogError("GameIntroPopupOverlay is not assigned.");
             return;
         }
+
+        introPopupOpen = true;
 
         if (gameIntroTitleText != null)
         {
@@ -158,21 +161,61 @@ public class MenuScreenController : MonoBehaviour
         }
 
         gameIntroPopupOverlay.SetActive(true);
+        gameIntroPopupOverlay.transform.SetAsLastSibling();
     }
 
     public void CloseGameIntroPopup()
     {
+        introPopupOpen = false;
+
         if (gameIntroPopupOverlay != null)
         {
             gameIntroPopupOverlay.SetActive(false);
         }
     }
 
-    public void LoadLevel(int levelIndex)
+public void LoadLevel(int levelIndex)
+{
+    if (levelManager == null)
     {
-        ShowLevelUI();
-        levelManager.GetComponent<LevelManager>().CreateLevel(levelIndex);
-        
+        Debug.LogError("LevelManager is not assigned in MenuScreenController.");
+        return;
+    }
+
+    LevelManager manager = levelManager.GetComponent<LevelManager>();
+
+    if (manager == null)
+    {
+        Debug.LogError("Assigned LevelManager object does not have LevelManager script.");
+        return;
+    }
+
+    ShowOnly(null);
+    SetBackButton(false);
+    CloseGameIntroPopup();
+
+    if (levelPopupController != null)
+        levelPopupController.BeginLevel(levelIndex + 1);
+    else
+        Debug.LogError("LevelPopupController is not assigned in MenuScreenController.");
+
+    manager.CreateLevel(levelIndex);
+}
+
+    public void ResetProgress()
+    {
+        GameProgress.ResetProgress();
+        PlayerPrefs.DeleteKey(GameStartedKey);
+        PlayerPrefs.Save();
+
+        RefreshLevelSelection();
+        RefreshMainButtonText();
+        OpenMainMenu();
+    }
+
+    public void ResetProgressForTesting()
+    {
+        ResetProgress();
     }
 
     public void ExitGame()
@@ -185,10 +228,17 @@ public class MenuScreenController : MonoBehaviour
 #endif
     }
 
-    public void ResetProgressForTesting()
+    private void RefreshMainButtonText()
     {
-        GameProgress.ResetProgress();
+        if (playButtonText == null)
+            return;
 
+        bool gameAlreadyStarted = PlayerPrefs.GetInt(GameStartedKey, 0) == 1;
+        playButtonText.text = gameAlreadyStarted ? "Continue" : "Start Game";
+    }
+
+    private void RefreshLevelSelection()
+    {
         if (levelSelectionController != null)
         {
             levelSelectionController.Refresh();

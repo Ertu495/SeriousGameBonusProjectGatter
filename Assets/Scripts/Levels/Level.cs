@@ -1,50 +1,44 @@
 using UnityEngine;
-using TMPro;
 
 public class Level : MonoBehaviour
 {
+    [Header("Level Settings")]
     public int levelNumber;
     public bool isTutorialLevel;
-    public GameObject[] AvailableGates; 
+    public GameObject[] AvailableGates;
 
+    [Header("Old Text Fields - Not Used By New Popup System")]
     public string tutorialText;
     public string tutorialTextHeader;
-
     public string endLevelText;
     public string endLevelHeader;
 
+    [Header("Level Values")]
     public int targetValue;
     public int currentValue;
 
-    public GameObject tutorialTextObject; 
-    public GameObject endLevelObject; 
+    [Header("Old UI References - Not Used By New Popup System")]
+    public GameObject tutorialTextObject;
+    public GameObject endLevelObject;
     public GameObject LevelManagerObject;
     public MenuScreenController menuScreenController;
 
-
     public void StartLevel()
     {
-        menuScreenController = FindFirstObjectByType<MenuScreenController>();
-        if (isTutorialLevel && tutorialTextObject != null)
-        {
-            tutorialTextObject.SetActive(true);
-            tutorialTextObject.GetComponent<TutorialText>().SetTutorialText(tutorialText, tutorialTextHeader);
-        }
+        // New popup system is started by MenuScreenController + LevelPopupController.
+        // This method remains because LevelManager calls it after creating a level.
     }
 
     public void EndLevel()
     {
+        LevelPopupController popupController = FindFirstObjectByType<LevelPopupController>();
 
-        if (endLevelObject != null)
+        if (popupController == null)
         {
-            menuScreenController = FindFirstObjectByType<MenuScreenController>();
-            menuScreenController.ShowEndLevelUI();
-
-            endLevelObject.GetComponent<TutorialText>().SetTutorialText(endLevelText, endLevelHeader);
+            Debug.LogError("No LevelPopupController found in Main scene. Cannot show success popup.");
+            return;
         }
-        GameProgress.MarkLevelCompleted(levelNumber);
-        Debug.Log(GameProgress.GetHighestUnlockedLevel());
 
-        LevelManagerObject.GetComponent<LevelManager>().DestroyLevel();
+        popupController.ShowSuccessForLevel(levelNumber);
     }
 }
