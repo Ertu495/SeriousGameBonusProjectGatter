@@ -867,7 +867,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1311584681}
@@ -1117,7 +1117,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 457634973}
@@ -2203,10 +2203,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: f32d3f5393b7ef242b3a560610b4a2cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f32d3f5393b7ef242b3a560610b4a2cf, type: 3}
 --- !u!4 &1311584681 stripped
 Transform:
@@ -2806,26 +2803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93faf606f7fa431c9833dfc1eb2d98d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelSceneUIController
-  levelNumber: 1
-  mainMenuSceneName: Main
-  nextSceneName: Level2
-  toLevelMenuButton: {fileID: 1471942800}
-  tutorialPopupButton: {fileID: 254561764}
-  tutorialPopupOverlay: {fileID: 127372190}
-  tutorialTitleText: {fileID: 161232058}
-  tutorialBodyText: {fileID: 1474824002}
-  tutorialTruthTableText: {fileID: 1223642455}
-  tutorialHideButton: {fileID: 1346768391}
-  tutorialContinueButton: {fileID: 226644805}
-  successPopupOverlay: {fileID: 624650261}
-  successTitleText: {fileID: 1916380981}
-  successBodyText: {fileID: 1870908578}
-  successTruthTableText: {fileID: 285631831}
-  successContinueButton: {fileID: 1704332803}
-  endGamePopupOverlay: {fileID: 0}
-  endGameTitleText: {fileID: 0}
-  endGameBodyText: {fileID: 0}
-  endGameContinueButton: {fileID: 0}
 --- !u!1001 &1502949240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2881,10 +2858,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: 541851b97ad706843b1a114e34bf7178, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 541851b97ad706843b1a114e34bf7178, type: 3}
 --- !u!4 &1502949241 stripped
 Transform:
@@ -3020,7 +2994,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -37,6 +37,7 @@ public class LevelPopupController : MonoBehaviour
     private int currentLevelNumber;
     private bool successAlreadyShown;
 
+
     private void Awake()
     {
         ConnectButtons();
@@ -61,8 +62,25 @@ public class LevelPopupController : MonoBehaviour
             successContinueButton.onClick.AddListener(ContinueAfterSuccess);
 
         if (endGameContinueButton != null)
-            endGameContinueButton.onClick.AddListener(ReturnToLevelSelection);
+            //endGameContinueButton.onClick.AddListener(ReturnToLevelSelection);
+            endGameContinueButton.onClick.AddListener(rollCredits);
+            
     }
+
+    public void rollCredits()
+{
+    HideLevelRuntimeUI();
+
+    if (levelManager != null)
+    {
+        levelManager.DestroyLevel();
+    }
+
+    if (menuScreenController != null)
+    {
+        menuScreenController.OpenCredits();
+    }
+}
 
     public void BeginLevel(int levelNumber)
     {
