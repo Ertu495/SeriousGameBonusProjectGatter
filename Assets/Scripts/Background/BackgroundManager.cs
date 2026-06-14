@@ -109,9 +109,13 @@ public class BackgroundObjectManager : MonoBehaviour
 
 
         introCoroutine = null;
+        SetBackground(3);
+        MenuScreenController menuScreenController = FindFirstObjectByType<MenuScreenController>();
+        menuScreenController.OpenGameIntroPopup();
+        menuScreenController.OpenSelectLevelMenu();
     }
 
-    public void NextBackground()
+        public void NextBackground()
     {
         if (backgrounds == null || backgrounds.Length == 0)
             return;

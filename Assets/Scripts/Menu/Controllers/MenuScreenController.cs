@@ -102,6 +102,7 @@ public class MenuScreenController : MonoBehaviour
 
     public void OnPlayClicked()
     {
+        ShowNothing();
         bool gameAlreadyStarted = PlayerPrefs.GetInt(GameStartedKey, 0) == 1;
 
         if (gameAlreadyStarted)
@@ -110,8 +111,6 @@ public class MenuScreenController : MonoBehaviour
             return;
         }
 
-        OpenSelectLevelMenu();
-        OpenGameIntroPopup();
     }
 
     public void StartNewGame()
@@ -255,6 +254,18 @@ public void LoadLevel(int levelIndex)
         SetActive(levelUI, levelUI == targetMenu);
         SetActive(levelTutorialUI, levelTutorialUI == targetMenu);
         SetActive(endLevelUI, endLevelUI == targetMenu);
+    }
+
+    private void ShowNothing()
+    {
+        SetActive(mainMenuUI, false);
+        SetActive(playMenuUI, false);
+        SetActive(selectLevelMenuUI, false);
+        SetActive(settingsMenuUI, false);
+        SetActive(creditsMenuUI, false);
+        SetActive(levelUI, false);
+        SetActive(levelTutorialUI,false);
+        SetActive(endLevelUI, false);
     }
 
     private void SetBackButton(bool visible)
