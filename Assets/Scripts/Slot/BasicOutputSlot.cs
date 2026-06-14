@@ -8,8 +8,8 @@ public class BasicOutputSlot : BasicSlot
     public int targetValue;
     public TextMeshPro targetText;
     public TextMeshPro outputText;
-    public SpriteRenderer background;
     public bool isSolved = false;
+    public GameObject[] valueVisuals;
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class BasicOutputSlot : BasicSlot
 
     void UpdateTarget()
     {
-        targetText.text = "Target: " + targetValue;
+        targetText.text = targetValue.ToString();
     }
 
     void OnSolved()
@@ -62,22 +62,23 @@ public class BasicOutputSlot : BasicSlot
     {
         if (value == -1)
         {
-            outputText.text = "?";
-            background.color = Color.gray;
+            for (int i = 0; i < valueVisuals.Length; i++)
+            {
+                if (valueVisuals[i] != null)
+                    valueVisuals[i].SetActive(false);
+            }
+
             return;
         }
 
-        outputText.text = value.ToString();
+        if (valueVisuals == null) return;
+
+        for (int i = 0; i < valueVisuals.Length; i++)
+            if (valueVisuals[i] != null)
+                valueVisuals[i].SetActive(i == value);
 
         if (value == targetValue)
-        {
-            background.color = Color.green;
             OnSolved();
-        }
-        else
-        {
-            background.color = Color.red;
-        }
     }
 
     public void SetInput(int value)

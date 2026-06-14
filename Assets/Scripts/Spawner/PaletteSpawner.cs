@@ -14,6 +14,11 @@ public class PaletteSpawner : MonoBehaviour
         spawned = Instantiate(prefab);
         spawned.transform.position = GetMouseWorldPosition();
 
+        foreach (var sr in spawned.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.sortingOrder = 1000;
+        }
+
         var drag = spawned.GetComponent<DraggableObject>();
         if (drag != null)
             drag.ForceStartDrag();
