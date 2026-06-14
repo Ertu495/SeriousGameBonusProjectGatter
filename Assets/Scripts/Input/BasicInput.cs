@@ -9,7 +9,7 @@ public class BasicInput : DraggableObject
 
     void Start()
     {
-        textMesh.text = value == -1 ? "?" : value.ToString();
+       // textMesh.text = value == -1 ? "?" : value.ToString();
     }
 
     protected override bool IsInAnySlot()

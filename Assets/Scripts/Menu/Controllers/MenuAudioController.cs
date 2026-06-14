@@ -10,9 +10,12 @@ public class MenuAudioController : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource soundSource;
+    [SerializeField] private AudioSource rightSoundSource;
+    [SerializeField] private AudioSource wrongSoundSource;
 
     private const string MusicVolumeKey = "MusicVolume";
     private const string SoundVolumeKey = "SoundVolume";
+    
 
     private void Start()
     {
@@ -32,9 +35,11 @@ public class MenuAudioController : MonoBehaviour
 
     public void SetSoundVolume(float volume)
     {
-        if (soundSource != null)
+        if (soundSource != null && rightSoundSource != null && wrongSoundSource != null)
         {
             soundSource.volume = volume;
+            rightSoundSource.volume = volume;
+            wrongSoundSource.volume = volume;
         }
 
         PlayerPrefs.SetFloat(SoundVolumeKey, volume);
@@ -61,9 +66,11 @@ public class MenuAudioController : MonoBehaviour
             musicSource.volume = savedMusicVolume;
         }
 
-        if (soundSource != null)
+        if (soundSource != null && rightSoundSource != null && wrongSoundSource != null)
         {
             soundSource.volume = savedSoundVolume;
+            rightSoundSource.volume = savedSoundVolume;
+            wrongSoundSource.volume = savedSoundVolume;
         }
     }
 }

@@ -1053,6 +1053,8 @@ MonoBehaviour:
   output: -1
   cablePrefab: {fileID: 5249398497739274556, guid: 7a5df98e9fee21f4db7e393d02ffd9c6, type: 3}
   cablePairs: []
+  rightSoundSource: {fileID: 0}
+  wrongSoundSource: {fileID: 0}
   currentInput: {fileID: 0}
   targetValue: 0
   targetText: {fileID: 2853572062919250713}
