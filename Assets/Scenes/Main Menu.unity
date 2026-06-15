@@ -3677,6 +3677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4537ceee515477c8df1539e1b882ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuScreenController
+  levelPopupController: {fileID: 0}
   mainMenuUI: {fileID: 161520149}
   playMenuUI: {fileID: 2059964030}
   selectLevelMenuUI: {fileID: 2059964030}
@@ -3686,6 +3687,7 @@ MonoBehaviour:
   levelTutorialUI: {fileID: 0}
   endLevelUI: {fileID: 0}
   backButtonUI: {fileID: 0}
+  playButtonText: {fileID: 0}
   levelSelectionController: {fileID: 2059964034}
   gameIntroPopupOverlay: {fileID: 999680925}
   gameIntroTitleText: {fileID: 2074763268}
@@ -7511,6 +7513,8 @@ MonoBehaviour:
   soundSlider: {fileID: 1032943135}
   musicSource: {fileID: 1566648563}
   soundSource: {fileID: 587241407}
+  rightSoundSource: {fileID: 0}
+  wrongSoundSource: {fileID: 0}
 --- !u!1 &2010585763
 GameObject:
   m_ObjectHideFlags: 0

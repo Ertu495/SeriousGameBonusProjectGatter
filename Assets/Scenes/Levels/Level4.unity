@@ -1801,10 +1801,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: 0a1b7c297cc716a4f87a110368fbab21, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a1b7c297cc716a4f87a110368fbab21, type: 3}
 --- !u!1 &1089421345
 GameObject:
@@ -2412,10 +2409,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: 541851b97ad706843b1a114e34bf7178, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 541851b97ad706843b1a114e34bf7178, type: 3}
 --- !u!4 &1618396891 stripped
 Transform:
@@ -2477,10 +2471,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: 1e247e04e4b807449bbdfee520b080ab, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e247e04e4b807449bbdfee520b080ab, type: 3}
 --- !u!1 &1721755019
 GameObject:
@@ -2499,7 +2490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1721755020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2681,10 +2672,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 244945369992010945, guid: f32d3f5393b7ef242b3a560610b4a2cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f32d3f5393b7ef242b3a560610b4a2cf, type: 3}
 --- !u!4 &1932708919 stripped
 Transform:
