@@ -8,6 +8,9 @@ public abstract class DraggableObject : MonoBehaviour
     private bool externalDrag = false;
     protected Vector3 mouseOffset;
 
+    private SpriteRenderer[] renderers;
+    private int[] originalOrders;
+
     protected virtual void OnMouseDown()
     {
         if (locked) return;
@@ -74,6 +77,8 @@ public abstract class DraggableObject : MonoBehaviour
             }
         }
 
+        ResetSorting();
+
         if (!hit)
         {
             if (this is BasicGate g && g.currentSlot != null)
@@ -83,12 +88,35 @@ public abstract class DraggableObject : MonoBehaviour
         }
     }
 
-    protected abstract bool IsInAnySlot();
+    protected void ResetSorting()
+    {
+        if (renderers == null) return;
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] == null) continue;
+            renderers[i].sortingOrder = 2;
+        }
+    }
 
     public void ForceStartDrag()
     {
         isDragging = true;
         externalDrag = true;
+
         mouseOffset = transform.position - GetMouseWorldPosition();
+
+        renderers = GetComponentsInChildren<SpriteRenderer>();
+        originalOrders = new int[renderers.Length];
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i] == null) continue;
+
+            originalOrders[i] = renderers[i].sortingOrder;
+            renderers[i].sortingOrder = 1000;
+        }
     }
+
+    protected abstract bool IsInAnySlot();
 }

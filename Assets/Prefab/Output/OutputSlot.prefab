@@ -380,9 +380,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 973046679
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3337222449092175731, guid: 48541b7f7c1371a4385ba5c0dbc5b89f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1053,8 +1053,6 @@ MonoBehaviour:
   output: -1
   cablePrefab: {fileID: 5249398497739274556, guid: 7a5df98e9fee21f4db7e393d02ffd9c6, type: 3}
   cablePairs: []
-  rightSoundSource: {fileID: 0}
-  wrongSoundSource: {fileID: 0}
   currentInput: {fileID: 0}
   targetValue: 0
   targetText: {fileID: 2853572062919250713}
@@ -1148,9 +1146,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 973046679
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8608303579662778072, guid: 3ea5b1221ce499e43ad932be84539933, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

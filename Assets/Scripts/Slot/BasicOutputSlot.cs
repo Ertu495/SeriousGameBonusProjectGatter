@@ -61,13 +61,10 @@ public class BasicOutputSlot : BasicSlot
         }
     }
 
-void UpdateOutput(int value)
+    void UpdateOutput(int value)
     {
-        // SICHERHEITS-CHECK: Ist der Wert noch exakt derselbe wie im Frame davor? 
-        // Wenn ja -> brich hier sofort ab! Kein Spamming mehr!
-        if (value == lastValue) return; 
+        if (value == lastValue) return;
 
-        // Es ist ein neuer Wert! Wir merken uns diesen für den nächsten Frame.
         lastValue = value;
 
         if (value == -1)
@@ -89,17 +86,14 @@ void UpdateOutput(int value)
 
         if (value != targetValue)
         {
-            Debug.Log("wrong");
-            // Spiele den Sound nur ab, wenn er nicht ohnehin gerade schon läuft
             if (!GameObject.Find("wrongSound").GetComponent<AudioSource>().isPlaying)
             {
-                GameObject.Find("wrongSound").GetComponent<AudioSource>().Play(); 
+                GameObject.Find("wrongSound").GetComponent<AudioSource>().Play();
             }
-        } 
+        }
         else
         {
             OnSolved();
-            Debug.Log("success");
             if (!GameObject.Find("rightSound").GetComponent<AudioSource>().isPlaying)
             {
                 GameObject.Find("rightSound").GetComponent<AudioSource>().Play();
