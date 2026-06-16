@@ -244,7 +244,8 @@ public class LevelPopupController : MonoBehaviour
                     body =
                         "Repair task: restore the warning inverter cable.\n\n" +
                         "The NOT gate reverses a signal.\n\n" +
-                        "If the input is 0, the output becomes 1. If the input is 1, the output becomes 0.\n\n" +
+                        "If the input is 0, the output becomes 1.\n\n" +
+                        "If the input is 1, the output becomes 0.\n\n" +
                         "A = System safe\n" +
                         "OUT = Warning active\n\n" +
                         "Use NOT when the circuit must produce the opposite signal.",
