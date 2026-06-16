@@ -3223,7 +3223,7 @@ MonoBehaviour:
   - {fileID: 335149451}
   - {fileID: 1482802963}
   - {fileID: 1563550545}
-  startBackgroundIndex: 3
+  startBackgroundIndex: 0
   introBackgroundDuration: 6
   backgroundStartIndex: 0
   backgroundEndIndex: 2
@@ -6037,6 +6037,7 @@ MonoBehaviour:
   gameIntroButtonText: {fileID: 1350479578}
   firstLevelIndex: 0
   levelManager: {fileID: 53172013}
+  backgroundManager: {fileID: 440861879}
 --- !u!4 &978542191
 Transform:
   m_ObjectHideFlags: 0
@@ -7350,18 +7351,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 440861879}
-        m_TargetAssemblyTypeName: BackgroundObjectManager, Assembly-CSharp
-        m_MethodName: PlayIntro
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1290219357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8325,7 +8314,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4288916790
   m_fontColor: {r: 0.21176471, g: 0.6784314, b: 0.6392157, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3

@@ -13,7 +13,7 @@ public class BackgroundObjectManager : MonoBehaviour
     [SerializeField] private float introBackgroundDuration = 2f;
     [SerializeField] private int backgroundStartIndex = 0;
     [SerializeField] private int backgroundEndIndex = 0;
-    private bool introPlayed = false;
+    private const string GameStartedKey = "BooleanMechanic_GameStarted";
 
     [Header("Scaling")]
     [SerializeField] private bool fitActiveBackgroundToCamera = true;
@@ -73,14 +73,12 @@ public class BackgroundObjectManager : MonoBehaviour
 
     public void PlayIntro()
     {
-        if (introPlayed) return;
         if (introCoroutine != null)
         {
             StopCoroutine(introCoroutine);
         }
 
         introCoroutine = StartCoroutine(PlayIntroRoutine());
-        introPlayed = true;
     }
 
     public void StopIntro()

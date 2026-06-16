@@ -36,6 +36,7 @@ public class MenuScreenController : MonoBehaviour
     [Header("Scenes / Level Loading")]
     [SerializeField] private int firstLevelIndex = 0;
     [SerializeField] private GameObject levelManager;
+    [SerializeField] private BackgroundObjectManager backgroundManager;
 
     private bool introPopupOpen;
 
@@ -44,6 +45,7 @@ public class MenuScreenController : MonoBehaviour
         CloseGameIntroPopup();
         OpenMainMenu();
         RefreshMainButtonText();
+        backgroundManager.SetBackground(0);
     }
 
     public void OpenMainMenu()
@@ -52,6 +54,7 @@ public class MenuScreenController : MonoBehaviour
         SetBackButton(false);
         CloseGameIntroPopup();
         RefreshMainButtonText();
+        backgroundManager.SetBackground(0);
     }
 
     public void OpenPlayMenu()
@@ -59,6 +62,7 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(playMenuUI);
         SetBackButton(true);
         RefreshLevelSelection();
+        backgroundManager.SetBackground(0);
     }
 
     public void OpenSelectLevelMenu()
@@ -66,6 +70,7 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(selectLevelMenuUI);
         SetBackButton(true);
         RefreshLevelSelection();
+        backgroundManager.SetBackground(0);
     }
 
     public void ShowLevelUI()
@@ -91,6 +96,7 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(settingsMenuUI);
         SetBackButton(true);
         CloseGameIntroPopup();
+        backgroundManager.SetBackground(0);
     }
 
     public void OpenCredits()
@@ -98,6 +104,7 @@ public class MenuScreenController : MonoBehaviour
         ShowOnly(creditsMenuUI);
         SetBackButton(true);
         CloseGameIntroPopup();
+        backgroundManager.SetBackground(0);
     }
 
     public void OnPlayClicked()
@@ -110,6 +117,7 @@ public class MenuScreenController : MonoBehaviour
             OpenSelectLevelMenu();
             return;
         }
+        backgroundManager.PlayIntro();
 
     }
 
@@ -199,6 +207,7 @@ public void LoadLevel(int levelIndex)
         Debug.LogError("LevelPopupController is not assigned in MenuScreenController.");
 
     manager.CreateLevel(levelIndex);
+    backgroundManager.SetBackground(3);
 }
 
     public void ResetProgress()
